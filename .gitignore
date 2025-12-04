@@ -1,0 +1,36 @@
+# Rust
+**/target/
+**/*.rs.bk
+Cargo.lock
+
+# Environment variables
+.env
+.env.local
+.env.*.local
+
+# IDE
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Elixir (for future)
+_build/
+deps/
+*.beam
+*.plt
+erl_crash.dump
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+
+# OS
+.DS_Store
+Thumbs.db
+

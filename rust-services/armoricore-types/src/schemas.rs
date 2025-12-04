@@ -1,0 +1,136 @@
+//! Event payload schemas
+
+use serde::{Deserialize, Serialize};
+use uuid::Uuid;
+
+// ============================================================================
+// Media Event Payloads
+// ============================================================================
+
+/// Payload for `media.uploaded` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MediaUploadedPayload {
+    pub media_id: Uuid,
+    pub user_id: Uuid,
+    pub file_path: String,
+    pub content_type: String,
+    pub file_size: u64,
+    #[serde(default)]
+    pub metadata: serde_json::Value,
+}
+
+/// Payload for `media.ready` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct MediaReadyPayload {
+    pub media_id: Uuid,
+    pub playback_urls: PlaybackUrls,
+    pub thumbnail_urls: Vec<String>,
+    pub duration: u64, // Duration in seconds
+    pub resolutions: Vec<String>,
+}
+
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PlaybackUrls {
+    pub hls: Option<String>,
+    pub dash: Option<String>,
+}
+
+// ============================================================================
+// Notification Event Payloads
+// ============================================================================
+
+/// Payload for `notification.requested` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NotificationRequestedPayload {
+    pub user_id: Uuid,
+    pub notification_type: NotificationType,
+    pub title: String,
+    pub body: String,
+    #[serde(default)]
+    pub data: serde_json::Value,
+}
+
+/// Payload for `notification.sent` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NotificationSentPayload {
+    pub user_id: Uuid,
+    pub notification_id: Uuid,
+    pub notification_type: NotificationType,
+    pub sent_at: chrono::DateTime<chrono::Utc>,
+}
+
+/// Payload for `notification.failed` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct NotificationFailedPayload {
+    pub user_id: Uuid,
+    pub notification_id: Uuid,
+    pub notification_type: NotificationType,
+    pub error: String,
+    pub failed_at: chrono::DateTime<chrono::Utc>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum NotificationType {
+    Push,
+    Email,
+}
+
+// ============================================================================
+// Transcription Event Payloads
+// ============================================================================
+
+/// Payload for `transcription.requested` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TranscriptionRequestedPayload {
+    pub media_id: Uuid,
+    pub user_id: Uuid,
+    pub source_file_path: String,
+    pub language: Option<String>,
+}
+
+/// Payload for `transcription.complete` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct TranscriptionCompletePayload {
+    pub media_id: Uuid,
+    pub transcription_id: Uuid,
+    pub transcript_file_path: String,
+    pub language: String,
+    pub completed_at: chrono::DateTime<chrono::Utc>,
+}
+
+// ============================================================================
+// Chat Event Payloads
+// ============================================================================
+
+/// Payload for `chat.message` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct ChatMessagePayload {
+    pub message_id: Uuid,
+    pub room_id: String,
+    pub user_id: Uuid,
+    pub content: String,
+    pub timestamp: chrono::DateTime<chrono::Utc>,
+}
+
+// ============================================================================
+// Presence Event Payloads
+// ============================================================================
+
+/// Payload for `presence.update` event
+#[derive(Debug, Clone, Serialize, Deserialize)]
+pub struct PresenceUpdatePayload {
+    pub user_id: Uuid,
+    pub room_id: String,
+    pub status: PresenceStatus,
+    pub timestamp: chrono::DateTime<chrono::Utc>,
+}
+
+#[derive(Debug, Clone, Copy, PartialEq, Eq, Serialize, Deserialize)]
+#[serde(rename_all = "snake_case")]
+pub enum PresenceStatus {
+    Online,
+    Offline,
+    Away,
+}
+

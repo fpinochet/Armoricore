@@ -1,0 +1,25 @@
+[package]
+name = "notification-worker"
+version.workspace = true
+edition.workspace = true
+authors.workspace = true
+license.workspace = true
+
+[[bin]]
+name = "notification-worker"
+path = "src/main.rs"
+
+[dependencies]
+message-bus-client = { path = "../message-bus-client" }
+armoricore-types = { path = "../armoricore-types" }
+armoricore-config = { path = "../armoricore-config" }
+armoricore-logging = { path = "../armoricore-logging" }
+tokio = { workspace = true }
+tracing = { workspace = true }
+futures = "0.3"
+tokio-stream = "0.1"
+uuid = { workspace = true }
+anyhow = { workspace = true }
+chrono = { workspace = true }
+serde_json = { workspace = true }
+
