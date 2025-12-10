@@ -373,7 +373,7 @@ media.uploaded → Validate → Transcode → Segment → Thumbnail → Upload �
 | **CDN** | Akamai | Content delivery |
 | **Containerization** | Docker | Deployment |
 | **Orchestration** | Kubernetes (optional) | Container orchestration |
-| **Monitoring** | Prometheus + Grafana | Metrics and alerting |
+| **Monitoring** | Structured Logging + Phoenix LiveDashboard | Log-based observability and real-time metrics |
 
 ---
 

@@ -5,6 +5,10 @@ edition.workspace = true
 authors.workspace = true
 license.workspace = true
 
+[lib]
+name = "notification_worker"
+path = "src/lib.rs"
+
 [[bin]]
 name = "notification-worker"
 path = "src/main.rs"
@@ -14,6 +18,7 @@ message-bus-client = { path = "../message-bus-client" }
 armoricore-types = { path = "../armoricore-types" }
 armoricore-config = { path = "../armoricore-config" }
 armoricore-logging = { path = "../armoricore-logging" }
+armoricore-keys = { path = "../armoricore-keys" }
 tokio = { workspace = true }
 tracing = { workspace = true }
 futures = "0.3"
@@ -21,5 +26,25 @@ tokio-stream = "0.1"
 uuid = { workspace = true }
 anyhow = { workspace = true }
 chrono = { workspace = true }
+serde = { workspace = true }
 serde_json = { workspace = true }
+
+# HTTP client for FCM/APNS
+reqwest = { workspace = true, features = ["json"] }
+
+# Email sending
+lettre = { version = "0.11", features = ["tokio1-native-tls", "builder"] }
+
+# JWT for APNS
+jsonwebtoken = { version = "9.3", features = ["pem"] }
+pem = "3.0"
+
+# HTTP server for health checks
+axum = { version = "0.7", features = ["tokio"] }
+
+# Database for device tokens
+tokio-postgres = { version = "0.7", features = ["with-uuid-1", "with-chrono-0_4"] }
+
+[dev-dependencies]
+tokio-test = "0.4"
 

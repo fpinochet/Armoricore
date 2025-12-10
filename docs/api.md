@@ -161,7 +161,7 @@ wss://realtime.example.com/socket/websocket?token=<JWT_TOKEN>
 {
   "event_type": "notification.requested",
   "event_id": "uuid",
-  "timestamp": "2024-01-01T00:00:00Z",
+  "timestamp": "2025-01-01T00:00:00Z",
   "source": "php-backend",
   "payload": {
     "user_id": "uuid",

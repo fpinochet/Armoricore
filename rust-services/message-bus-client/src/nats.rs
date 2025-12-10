@@ -1,4 +1,18 @@
 //! NATS JetStream implementation of the message bus client
+// Copyright 2025 Francisco F. Pinochet
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 
 use async_nats::jetstream::{self, Context};
 use armoricore_types::Event;
@@ -16,6 +30,7 @@ use crate::traits::MessageBusClient;
 pub struct NatsClient {
     client: Arc<async_nats::Client>,
     jetstream: Arc<Context>,
+    #[allow(dead_code)]
     stream_name: String,
     subject_prefix: String,
 }
@@ -80,6 +95,7 @@ impl NatsClient {
         format!("{}.{}", self.subject_prefix, event_type.replace(".", "_"))
     }
 
+    #[allow(dead_code)]
     /// Get event type from subject
     fn event_type_from_subject(&self, subject: &str) -> String {
         subject
@@ -205,7 +221,7 @@ mod tests {
         client.publish(&event).await.unwrap();
 
         // Subscribe
-        let mut stream = client.subscribe("notification.requested").await.unwrap();
+        let mut stream = client.subscribe("notification.requested");
         
         // Should receive the event
         let received = stream.next().await;

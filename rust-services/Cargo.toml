@@ -4,18 +4,25 @@ members = [
     "armoricore-types",
     "armoricore-config",
     "armoricore-logging",
+    "armoricore-keys",
     "notification-worker",
     "media-processor",
     "ai-workers",
+    "ai-connectors",
+    "realtime-media-engine",
+    "realtime-media-engine-grpc",
+    "media-relay",
+    "test-utils",
 ]
+# Note: armoricore-metrics removed - focusing on basic logging only
 resolver = "2"
 
 [workspace.package]
-version = "0.1.0"
+version = "0.9.0"
 edition = "2021"
 authors = ["Francisco F. Pinochet"]
 license = "Apache-2.0"
-repository = "https://github.com/your-org/armoricore"
+repository = "https://github.com/fpinochet/Armoricore"
 
 [workspace.dependencies]
 # Async runtime

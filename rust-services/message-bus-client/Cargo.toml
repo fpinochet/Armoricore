@@ -30,3 +30,7 @@ anyhow = { workspace = true }
 # Logging
 tracing = { workspace = true }
 
+[dev-dependencies]
+tokio-test = "0.4"
+uuid = { workspace = true }
+

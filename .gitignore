@@ -3,10 +3,25 @@
 **/*.rs.bk
 Cargo.lock
 
-# Environment variables
+# Environment variables and credentials
 .env
 .env.local
 .env.*.local
+*.env
+**/.env
+rust-services/.env
+elixir_realtime/.env
+
+# Keys and certificates
+*.key
+*.pem
+*.p8
+*.cert
+*.crt
+priv/keys/*.key
+priv/keys/*.meta
+rust-services/keys/*.key
+rust-services/keys/*.meta
 
 # IDE
 .idea/

@@ -1,4 +1,18 @@
 //! Event type definitions for the message bus
+// Copyright 2025 Francisco F. Pinochet
+//
+// Licensed under the Apache License, Version 2.0 (the "License");
+// you may not use this file except in compliance with the License.
+// You may obtain a copy of the License at
+//
+//     http://www.apache.org/licenses/LICENSE-2.0
+//
+// Unless required by applicable law or agreed to in writing, software
+// distributed under the License is distributed on an "AS IS" BASIS,
+// WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+// See the License for the specific language governing permissions and
+// limitations under the License.
+
 
 use chrono::{DateTime, Utc};
 use serde::{Deserialize, Serialize};
@@ -30,6 +44,29 @@ pub enum EventType {
     TranscriptionRequested,
     #[serde(rename = "transcription.complete")]
     TranscriptionComplete,
+    #[serde(rename = "transcription.failed")]
+    TranscriptionFailed,
+    // Captioning events
+    #[serde(rename = "captioning.requested")]
+    CaptioningRequested,
+    #[serde(rename = "captioning.complete")]
+    CaptioningComplete,
+    #[serde(rename = "captioning.failed")]
+    CaptioningFailed,
+    // Moderation events
+    #[serde(rename = "moderation.requested")]
+    ModerationRequested,
+    #[serde(rename = "moderation.complete")]
+    ModerationComplete,
+    #[serde(rename = "moderation.failed")]
+    ModerationFailed,
+    // Translation events
+    #[serde(rename = "translation.requested")]
+    TranslationRequested,
+    #[serde(rename = "translation.complete")]
+    TranslationComplete,
+    #[serde(rename = "translation.failed")]
+    TranslationFailed,
     
     // Chat events
     #[serde(rename = "chat.message")]
@@ -108,6 +145,36 @@ impl Event {
             EventType::TranscriptionComplete => {
                 let _: TranscriptionCompletePayload = self.payload_as()?;
             }
+            EventType::TranscriptionFailed => {
+                // No specific payload type for failed events
+            }
+            EventType::CaptioningRequested => {
+                // No specific payload type yet
+            }
+            EventType::CaptioningComplete => {
+                // No specific payload type yet
+            }
+            EventType::CaptioningFailed => {
+                // No specific payload type for failed events
+            }
+            EventType::ModerationRequested => {
+                // No specific payload type yet
+            }
+            EventType::ModerationComplete => {
+                // No specific payload type yet
+            }
+            EventType::ModerationFailed => {
+                // No specific payload type for failed events
+            }
+            EventType::TranslationRequested => {
+                // No specific payload type yet
+            }
+            EventType::TranslationComplete => {
+                // No specific payload type yet
+            }
+            EventType::TranslationFailed => {
+                // No specific payload type for failed events
+            }
             EventType::ChatMessage => {
                 let _: ChatMessagePayload = self.payload_as()?;
             }
@@ -122,7 +189,6 @@ impl Event {
 #[cfg(test)]
 mod tests {
     use super::*;
-    use crate::schemas::*;
 
     #[test]
     fn test_event_creation() {
